@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Higro+ · Atmospheric Water Harvesting: Scientific Review</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --white:       #FFFFFF;
+      --off-white:   #F8F8F6;
+      --rule:        #D4D0C8;
+      --rule-heavy:  #9B9690;
+      --text:        #1A1A18;
+      --text-mid:    #3D3D38;
+      --text-light:  #6B6B65;
+      --text-faint:  #9B9B94;
+      --accent:      #1A3A6B;
+      --accent-mid:  #2952A3;
+      --accent-light:#EBF0F8;
+      --fig-bg:      #F4F4F0;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--white);
+      color: var(--text);
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: 16px;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 200;
+      background: var(--white);
+      border-bottom: 1px solid var(--rule);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px; height: 44px;
+    }
+    .topbar-left { display: flex; align-items: center; gap: 20px; }
+    .journal-name { font-family: 'Lora', serif; font-size: 13px; font-weight: 600; color: var(--accent); letter-spacing: 0.04em; }
+    .topbar-divider { width: 1px; height: 16px; background: var(--rule); }
+    .topbar-meta { font-size: 11px; color: var(--text-faint); font-family: 'JetBrains Mono', monospace; }
+    .btn-print {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 11px; color: var(--text-light);
+      background: none; border: 1px solid var(--rule);
+      padding: 5px 12px; border-radius: 3px; cursor: pointer;
+      font-family: 'Source Serif 4', serif;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-print:hover { border-color: var(--accent); color: var(--accent); }
+    .page { max-width: 860px; margin: 0 auto; padding: 0 48px 120px; }
+    .masthead { padding: 56px 0 40px; border-bottom: 2px solid var(--text); margin-bottom: 40px; animation: fadeIn 0.5s ease both; }
+    .article-type {
+      font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent);
+      margin-bottom: 20px; display: flex; align-items: center; gap: 12px;
+    }
+    .article-type::after { content: ''; flex: 1; height: 1px; background: var(--accent-light); border-top: 1px solid var(--accent-mid); opacity: 0.3; }
+    .article-title { font-family: 'Lora', serif; font-size: clamp(26px, 4vw, 40px); font-weight: 600; color: var(--text); line-height: 1.2; letter-spacing: -0.01em; margin-bottom: 12px; }
+    .article-subtitle { font-family: 'Source Serif 4', serif; font-size: 17px; font-weight: 300; font-style: italic; color: var(--text-mid); line-height: 1.55; margin-bottom: 32px; }
+    .author-block { display: flex; align-items: flex-start; gap: 40px; flex-wrap: wrap; padding: 20px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; }
+    .author-label { font-size: 10px; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 4px; }
+    .author-name { font-size: 13px; font-weight: 500; color: var(--text); }
+    .author-affil { font-size: 12px; color: var(--text-light); font-style: italic; }
+    .doi-block { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-faint); display: flex; gap: 32px; flex-wrap: wrap; }
+    .doi-block span { color: var(--text-light); }
+    .abstract-box { background: var(--fig-bg); border-left: 3px solid var(--accent); padding: 28px 32px; margin-bottom: 52px; animation: fadeIn 0.5s ease 0.1s both; }
+    .abstract-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+    .abstract-text { font-size: 14px; line-height: 1.82; color: var(--text-mid); font-style: italic; }
+    .keywords { margin-top: 16px; font-size: 12px; color: var(--text-light); }
+    .keywords strong { font-weight: 600; color: var(--text); font-style: normal; }
+    .section { margin-bottom: 52px; }
+    .section-rule { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+    .section-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-faint); flex-shrink: 0; }
+    h2 { font-family: 'Lora', serif; font-size: 20px; font-weight: 600; color: var(--text); letter-spacing: -0.01em; line-height: 1.3; }
+    .section-rule::after { content: ''; flex: 1; height: 1px; background: var(--rule); }
+    h3 { font-family: 'Source Serif 4', serif; font-size: 15px; font-weight: 600; color: var(--text); margin: 28px 0 10px; }
+    p { font-size: 15px; font-weight: 300; color: var(--text-mid); line-height: 1.85; margin-bottom: 14px; }
+    p strong { font-weight: 600; color: var(--text); }
+    p em { font-style: italic; }
+    .fig { background: var(--fig-bg); border: 1px solid var(--rule); margin: 32px 0; padding: 28px 28px 20px; }
+    .fig-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 20px; }
+    .data-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin-bottom: 16px; }
+    .data-cell { background: var(--white); padding: 16px 18px; }
+    .data-val { font-family: 'Lora', serif; font-size: 26px; font-weight: 600; color: var(--accent); line-height: 1; margin-bottom: 5px; letter-spacing: -0.02em; }
+    .data-desc { font-size: 11px; color: var(--text-light); line-height: 1.5; font-style: italic; }
+    .fig-caption { font-size: 12px; color: var(--text-light); line-height: 1.6; font-style: italic; border-top: 1px solid var(--rule); padding-top: 12px; }
+    .fig-caption strong { font-style: normal; font-weight: 600; color: var(--text-mid); }
+    blockquote { margin: 28px 0; padding: 0 0 0 24px; border-left: 2px solid var(--rule-heavy); }
+    blockquote p { font-style: italic; font-size: 14px; color: var(--text-mid); margin-bottom: 6px; }
+    blockquote cite { font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--text-faint); }
+    .sci-list { list-style: none; margin: 12px 0 20px; }
+    .sci-list li { display: flex; gap: 16px; padding: 8px 0; border-bottom: 1px solid var(--fig-bg); font-size: 14px; font-weight: 300; color: var(--text-mid); line-height: 1.7; align-items: flex-start; }
+    .sci-list li:last-child { border-bottom: none; }
+    .sci-list li::before { content: '—'; color: var(--text-faint); flex-shrink: 0; font-weight: 300; margin-top: 1px; }
+    .sci-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 24px 0; }
+    .sci-table caption { font-size: 11px; font-style: italic; color: var(--text-light); text-align: left; padding: 10px 0 0; caption-side: bottom; }
+    .sci-table thead tr { border-bottom: 2px solid var(--text); }
+    .sci-table thead th { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-mid); padding: 10px 14px 10px 0; text-align: left; }
+    .sci-table tbody tr { border-bottom: 1px solid var(--rule); }
+    .sci-table tbody tr:hover { background: var(--fig-bg); }
+    .sci-table tbody td { padding: 11px 14px 11px 0; color: var(--text-mid); font-weight: 300; vertical-align: top; }
+    .badge { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 8px; border-radius: 2px; }
+    .badge-v { background: #E8F0E8; color: #2D5A2D; border: 1px solid #C8DFC8; }
+    .badge-d { background: #F0EDE0; color: #6B5A1A; border: 1px solid #DFD8C0; }
+    .ref-section { margin-top: 60px; }
+    .ref-divider { border: none; border-top: 2px solid var(--text); margin-bottom: 24px; }
+    .ref-heading { font-family: 'Lora', serif; font-size: 14px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text); margin-bottom: 20px; }
+    .ref-item { display: grid; grid-template-columns: 28px 1fr; gap: 0 12px; padding: 12px 0; border-bottom: 1px solid var(--fig-bg); }
+    .ref-item:last-child { border-bottom: none; }
+    .ref-n { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-faint); padding-top: 2px; }
+    .ref-authors { font-size: 13px; font-weight: 300; color: var(--text-mid); line-height: 1.5; }
+    .ref-title { font-size: 13px; font-weight: 400; font-style: italic; color: var(--text); line-height: 1.5; margin: 2px 0; }
+    .ref-journal { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--accent-mid); }
+    .page-footer { margin-top: 80px; padding-top: 24px; border-top: 1px solid var(--rule); display: flex; justify-content: space-between; font-size: 11px; color: var(--text-faint); font-family: 'JetBrains Mono', monospace; flex-wrap: wrap; gap: 8px; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    /* Language toggle */
+    .lang-toggle {
+      display: flex; align-items: center; gap: 0;
+      border: 1px solid var(--rule); border-radius: 3px; overflow: hidden; margin-right: 8px;
+    }
+    .lang-btn {
+      font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500;
+      letter-spacing: 0.06em; color: var(--text-faint);
+      background: none; border: none; padding: 5px 11px; cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+    .lang-btn.active { background: var(--accent); color: white; }
+    .lang-btn:not(.active):hover { background: var(--fig-bg); color: var(--text); }
+    [data-en] { display: none; }
+    body.en [data-es] { display: none; }
+    body.en [data-en] { display: revert; }
+    @media print {
+      .topbar, .btn-print { display: none; }
+      body { font-size: 11pt; }
+      .page { padding: 0; }
+      .masthead { padding-top: 0; }
+    }
+    @media (max-width: 680px) {
+      .topbar { padding: 0 20px; }
+      .page { padding: 0 20px 80px; }
+      .masthead { padding: 36px 0 28px; }
+      .abstract-box { padding: 20px; }
+      .fig { padding: 20px 16px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <span class="journal-name">HIGRO+ Scientific Reports</span>
+    <div class="topbar-divider"></div>
+    <span class="topbar-meta"><span data-es>Vol. 1 · Mayo 2026 · Santiago, Chile</span><span data-en>Vol. 1 · May 2026 · Santiago, Chile</span></span>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px;">
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btn-es" onclick="setLang('es')">ES</button>
+      <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+    <button class="btn-print" onclick="window.print()">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    <span data-es>Exportar PDF</span><span data-en>Export PDF</span>
+  </button>
+  </div>
+</div>
+
+<div class="page">
+
+  <header class="masthead">
+    <div class="article-type"><span data-es>Revisión científica · Tecnología AWH</span><span data-en>Scientific Review · AWH Technology</span></div>
+    <h1 class="article-title"><span data-es>Cosecha de Agua Atmosférica: Fundamentos Científicos y Validación de la Tecnología Higro+</span><span data-en>Atmospheric Water Harvesting: Scientific Foundations and Validation of the Higro+ Technology</span></h1>
+    <p class="article-subtitle"><span data-es>Síntesis de literatura peer-reviewed sobre sorción-desorción solar y su aplicación en dispositivos miniaturizados de riego distribuido</span><span data-en>Synthesis of peer-reviewed literature on solar sorption-desorption and its application in miniaturized distributed irrigation devices</span></p>
+    <div class="author-block">
+      <div>
+        <div class="author-label"><span data-es>Autores</span><span data-en>Authors</span></div>
+        <div class="author-name">Andrés Méndez · Dra. Fernanda Ramírez · Jorge Díaz</div>
+        <div class="author-affil">Higro+ Research Team, Santiago, Chile</div>
+      </div>
+      <div>
+        <div class="author-label"><span data-es>Correspondencia</span><span data-en>Correspondence</span></div>
+        <div class="author-name">Equipo Científico Higro+</div>
+        <div class="author-affil">contacto.higroplus@gmail.com</div>
+      </div>
+    </div>
+    <div class="doi-block">
+      <div><span data-es>Recibido</span><span data-en>Received</span>: <span>12 <span data-es>mayo</span><span data-en>May</span> 2026</span></div>
+      <div><span data-es>Publicado</span><span data-en>Published</span>: <span>18 <span data-es>mayo</span><span data-en>May</span> 2026</span></div>
+      <div><span data-es>Clasificación</span><span data-en>Classification</span>: <span><span data-es>Documento técnico confidencial</span><span data-en>Confidential technical document</span></span></div>
+    </div>
+  </header>
+
+  <div class="abstract-box">
+    <div class="abstract-label">Abstract</div>
+    <p class="abstract-text"><span data-es>La tecnología de cosecha de agua atmosférica (AWH, <em>atmospheric water harvesting</em>) ha emergido como una solución promisoria para el acceso descentralizado a agua potable. Este documento revisa la literatura peer-reviewed publicada entre 2017 y 2021 en <em>Science</em>, <em>ACS Central Science</em> y <em>Joule</em>, que valida el principio físico-químico central de Higro+ Drop: la sorción y desorción solar de vapor de agua usando materiales higroscópicos. Los estudios analizados demuestran viabilidad técnica a humedades relativas desde 20%, producción de hasta 2,8 L·kg⁻¹·día⁻¹, y la factibilidad de ciclos rápidos que permiten dispositivos compactos. La validación comercial por parte de Source Global confirma la transición exitosa desde el laboratorio hacia productos funcionales.</span><span data-en>Atmospheric water harvesting (AWH) technology has emerged as a promising solution for decentralized access to potable water. This document reviews peer-reviewed literature published between 2017 and 2021 in <em>Science</em>, <em>ACS Central Science</em> and <em>Joule</em>, validating the core physicochemical principle of Higro+ Drop: solar sorption-desorption of water vapor using hygroscopic materials. Studies demonstrate technical feasibility at relative humidity as low as 20%, production up to 2.8 L·kg⁻¹·day⁻¹, and fast-cycling devices enabling compact form factors. Commercial validation by Source Global confirms successful transition from laboratory to functional products.</span></p>
+    <div class="keywords"><span data-es><strong>Palabras clave:</strong> atmospheric water harvesting · metal-organic frameworks · sorción-desorción solar · riego distribuido · MOF-801 · MOF-303</span><span data-en><strong>Keywords:</strong> atmospheric water harvesting · metal-organic frameworks · solar sorption-desorption · distributed irrigation · MOF-801 · MOF-303</span></div>
+  </div>
+
+  <section class="section">
+    <div class="section-rule"><span class="section-num">1.</span><h2><span data-es>Introducción</span><span data-en>Introduction</span></h2></div>
+    <p><span data-es>La atmósfera terrestre almacena una reserva de agua dulce equivalente a aproximadamente el 10% del total contenido en todos los lagos de agua dulce del planeta. Sin embargo, el aprovechamiento eficiente de esta fuente —particularmente a humedades relativas inferiores al 40%— ha permanecido como un desafío técnico sin solución práctica hasta la última década.</span><span data-en>Earth's atmosphere stores a fresh water reserve equivalent to approximately 10% of the total contained in all freshwater lakes on the planet. However, the efficient exploitation of this source —particularly at relative humidity below 40%— has remained an unsolved technical challenge until the last decade.</span></p>
+    <p><span data-es>El mecanismo de condensación por enfriamiento (<em>dew point cooling</em>), utilizado en generadores de agua atmosférica convencionales, requiere llevar el aire por debajo de su punto de rocío mediante refrigeración activa, implicando consumos de 0,3–2,0 kWh por litro producido. Este requerimiento hace inviable su aplicación en contextos sin acceso a red eléctrica confiable.</span><span data-en>The dew point cooling mechanism used in conventional atmospheric water generators requires chilling air below its dew point through active refrigeration, consuming 0.3–2.0 kWh per liter produced. This requirement makes it unviable in contexts without reliable grid electricity access.</span></p>
+    <p><span data-es>El enfoque de <strong>sorción-desorción solar</strong>, por contraste, utiliza materiales higroscópicos que adsorben pasivamente el vapor de agua del aire y lo liberan mediante calor solar de baja temperatura (&lt;70°C), sin electricidad de red ni compresores. Esta distinción fundamental es el eje de la tecnología Higro+.</span><span data-en>The <strong>solar sorption-desorption</strong> approach, by contrast, uses hygroscopic materials that passively adsorb water vapor from air and release it via low-temperature solar heat (&lt;70°C), without grid electricity or compressors. This fundamental distinction is the axis of Higro+ technology.</span></p>
+  </section>
+
+  <section class="section">
+    <div class="section-rule"><span class="section-num">2.</span><h2><span data-es>Demostración Fundacional del Ciclo Sorción-Desorción Solar</span><span data-en>Foundational Demonstration of the Solar Sorption-Desorption Cycle</span></h2></div>
+    <p><strong>Kim, H. et al. (2017).</strong> <em>Water harvesting from air with metal-organic frameworks powered by natural sunlight.</em> Science, 356(6336), 430–434.</p>
+    <p>Este trabajo representa la primera demostración experimental rigurosa de cosecha de agua desde aire desértico utilizando únicamente radiación solar. El equipo conjunto del MIT y UC Berkeley diseñó un dispositivo basado en MOF-801, un marco metal-orgánico con área superficial interna de 950 m²·g⁻¹, que adsorbe agua a baja humedad relativa y la libera a temperaturas alcanzables con irradiación solar ordinaria.</p>
+    <div class="fig">
+      <div class="fig-label"><span data-es>Figura 1 · Resultados experimentales — Kim et al. (2017)</span><span data-en>Figure 1 · Experimental results — Kim et al. (2017)</span></div>
+      <div class="data-grid">
+        <div class="data-cell"><div class="data-val">2,8</div><div class="data-desc"><span data-es>L H₂O · kg⁻¹ MOF · día⁻¹ producidos experimentalmente</span><span data-en>L H₂O · kg⁻¹ MOF · day⁻¹ produced experimentally</span></div></div>
+        <div class="data-cell"><div class="data-val">20%</div><div class="data-desc"><span data-es>Humedad relativa mínima de operación validada</span><span data-en>Minimum validated operating relative humidity</span></div></div>
+        <div class="data-cell"><div class="data-val">&lt;1 kW</div><div class="data-desc"><span data-es>m⁻² de irradiación solar requerida (sub-1 sol estándar)</span><span data-en>m⁻² solar irradiance required (sub-1 standard sun)</span></div></div>
+        <div class="data-cell"><div class="data-val">0</div><div class="data-desc"><span data-es>kWh de electricidad de red requerida para operar</span><span data-en>kWh of grid electricity required to operate</span></div></div>
+      </div>
+      <div class="fig-caption"><span data-es><strong>Tabla 1.</strong> Parámetros de rendimiento del prototipo MOF-801. Temperatura de desorción alcanzada: 65°C bajo irradiación solar natural. Fuente: Kim et al. (2017), <em>Science</em>.</span><span data-en><strong>Table 1.</strong> Performance parameters of the MOF-801 prototype. Desorption temperature reached: 65°C under natural solar irradiation. Source: Kim et al. (2017), <em>Science</em>.</span></div>
+    </div>
+    <blockquote>
+      <p>"Atmospheric water is a resource equivalent to ~10% of all fresh water in lakes on Earth. However, an efficient process for capturing and delivering water from air, especially at low humidity levels (down to 20%), has not been developed."</p>
+      <cite>Kim et al., Science 356(6336):430, 2017</cite>
+    </blockquote>
+    <h3><span data-es>Relevancia para Higro+</span><span data-en>Relevance for Higro+</span></h3>
+    <p><span data-es>Este estudio establece la validez experimental del ciclo de sorción-desorción solar a humedades relativas comparables a las del desierto de Atacama. La operación demostrada a 20% HR sin electricidad de red constituye la base científica directa del principio de funcionamiento de Higro+ Drop.</span><span data-en>This study establishes the experimental validity of the solar sorption-desorption cycle at relative humidity levels comparable to the Atacama Desert. Operation demonstrated at 20% RH without grid electricity constitutes the direct scientific basis for Higro+ Drop's operating principle.</span></p>
+  </section>
+
+  <section class="section">
+    <div class="section-rule"><span class="section-num">3.</span><h2><span data-es>Optimización Cinética: Ciclos Rápidos y Alta Productividad</span><span data-en>Kinetic Optimization: Fast Cycling and High Productivity</span></h2></div>
+    <p><strong>Hanikel, N. et al. (2019).</strong> <em>Rapid cycling and exceptional yield in a metal-organic framework water harvester.</em> ACS Central Science, 5(10), 1699–1706.</p>
+    <p>La principal limitación de los dispositivos de primera generación era su restricción a un único ciclo de cosecha diario. Hanikel et al. identificaron que el cuello de botella no era intrínseco al principio físico, sino a las propiedades cinéticas del sorbente empleado. El MOF-303 exhibe canales de difusión más favorables para el transporte rápido de moléculas de agua, reduciendo los tiempos de ciclo de horas a minutos.</p>
+    <div class="fig">
+      <div class="fig-label"><span data-es>Figura 2 · Resultados experimentales — Hanikel et al. (2019)</span><span data-en>Figure 2 · Experimental results — Hanikel et al. (2019)</span></div>
+      <div class="data-grid">
+        <div class="data-cell"><div class="data-val">~min</div><div class="data-desc"><span data-es>Duración de ciclos sorción-desorción vs. horas en gen. anterior</span><span data-en>Sorption-desorption cycle duration vs. hours in prior generation</span></div></div>
+        <div class="data-cell"><div class="data-val">1,3</div><div class="data-desc"><span data-es>L · kg⁻¹ MOF · día⁻¹ a 32% HR en condiciones áridas</span><span data-en>L · kg⁻¹ MOF · day⁻¹ at 32% RH under arid conditions</span></div></div>
+        <div class="data-cell"><div class="data-val">Mojave</div><div class="data-desc"><span data-es>Validación en campo real (Desierto de Mojave, California)</span><span data-en>Real-field validation (Mojave Desert, California)</span></div></div>
+      </div>
+      <div class="fig-caption"><span data-es><strong>Tabla 2.</strong> Parámetros de rendimiento del prototipo MOF-303. Supera todos los sorbentes comerciales evaluados bajo condiciones equivalentes. Fuente: Hanikel et al. (2019), <em>ACS Central Science</em>.</span><span data-en><strong>Table 2.</strong> Performance parameters of the MOF-303 prototype. Outperforms all commercial sorbents evaluated under equivalent conditions. Source: Hanikel et al. (2019), <em>ACS Central Science</em>.</span></div>
+    </div>
+    <h3><span data-es>Implicancias para Dispositivos Miniaturizados</span><span data-en>Implications for Miniaturized Devices</span></h3>
+    <p><span data-es>El ciclado rápido permite reducir la masa de sorbente requerida para una productividad objetivo: un sorbente que cicla diez veces al día con la mitad de capacidad puntual produce cinco veces más agua que uno que cicla una sola vez. Este principio es fundamental para las restricciones de volumen y masa de Higro+ Drop.</span><span data-en>Fast cycling allows reducing the sorbent mass required for a target productivity: a sorbent cycling ten times per day at half the point capacity produces five times more water than one cycling once. This principle is fundamental to Higro+ Drop's volume and mass constraints.</span></p>
+  </section>
+
+  <section class="section">
+    <div class="section-rule"><span class="section-num">4.</span><h2><span data-es>Arquitecturas Multi-Etapa y Recuperación Térmica</span><span data-en>Multi-Stage Architectures and Thermal Recovery</span></h2></div>
+    <p><strong>LaPotin, A. et al. (2021).</strong> <em>Dual-stage atmospheric water harvesting device for scalable solar-driven water production.</em> Joule, 5(1), 166–182.</p>
+    <p>Este trabajo del grupo de Evelyn N. Wang (MIT) introduce una innovación arquitectónica que aborda una ineficiencia intrínseca de los dispositivos AWH de etapa única: la pérdida del calor latente de condensación (≈2.260 J·g⁻¹). En el diseño de doble etapa, este calor es recuperado y conducido hacia la etapa inferior donde asiste la desorción del sorbente, incrementando la eficiencia total sin energía adicional.</p>
+    <div class="fig">
+      <div class="fig-label"><span data-es>Figura 3 · Resultados experimentales — LaPotin et al. (2021)</span><span data-en>Figure 3 · Experimental results — LaPotin et al. (2021)</span></div>
+      <div class="data-grid">
+        <div class="data-cell"><div class="data-val">+18%</div><div class="data-desc"><span data-es>Incremento de productividad vs. diseño de etapa única equivalente</span><span data-en>Productivity increase vs. equivalent single-stage design</span></div></div>
+        <div class="data-cell"><div class="data-val">0,77</div><div class="data-desc"><span data-es>kg H₂O · kg⁻¹ sorbente · ciclo⁻¹ con zeolita AQSOA Z01</span><span data-en>kg H₂O · kg⁻¹ sorbent · cycle⁻¹ with AQSOA Z01 zeolite</span></div></div>
+        <div class="data-cell"><div class="data-val">AQSOA</div><div class="data-desc"><span data-es>Zeolita comercial; no se requieren materiales de síntesis especializada</span><span data-en>Commercial zeolite; no specialized synthesis materials required</span></div></div>
+      </div>
+      <div class="fig-caption"><span data-es><strong>Tabla 3.</strong> Parámetros del prototipo de doble etapa con recuperación de calor latente. Modelo teórico validado con resultados experimentales. Fuente: LaPotin et al. (2021), <em>Joule</em>.</span><span data-en><strong>Table 3.</strong> Parameters of the dual-stage prototype with latent heat recovery. Theoretical model validated with experimental results. Source: LaPotin et al. (2021), <em>Joule</em>.</span></div>
+    </div>
+    <h3><span data-es>Relevancia Estratégica</span><span data-en>Strategic Relevance</span></h3>
+    <p><span data-es>Las ganancias en eficiencia son alcanzables no solo mediante nuevos materiales, sino también mediante el <strong>diseño inteligente del sistema</strong>. Mejoras significativas en productividad pueden obtenerse con materiales comercialmente disponibles, reduciendo la dependencia de materiales exóticos en fases tempranas del desarrollo de producto.</span><span data-en>Efficiency gains are achievable not only through new materials, but also through <strong>intelligent system design</strong>. Significant productivity improvements can be obtained with commercially available materials, reducing dependence on exotic materials in early product development stages.</span></p>
+  </section>
+
+  <section class="section">
+    <div class="section-rule"><span class="section-num">5.</span><h2><span data-es>Alternativas de Bajo Costo: Composites Sal-en-Matriz</span><span data-en>Low-Cost Alternatives: Salt-in-Matrix Composites</span></h2></div>
+    <p>Paralelamente a la línea de investigación en MOFs, diversos grupos han explorado sorbentes basados en <strong>sales higroscópicas</strong> (CaCl₂, LiCl, LiBr) embebidas en matrices porosas de bajo costo, buscando reproducir las propiedades de sorción de los MOFs a una fracción de su costo de síntesis.</p>
+    <ul class="sci-list">
+      <li>Costo estimado de 5–50 USD·kg⁻¹ vs. 200–2.000 USD·kg⁻¹ para MOFs de alta gama</li>
+      <li>Capacidades de adsorción competitivas en rango 40–80% HR (0,3–1,2 g H₂O · g⁻¹ sorbente)</li>
+      <li>Susceptibilidad a delicuescencia en condiciones de alta humedad: limitación relevante para diseño de empaque</li>
+      <li>Manufactura compatible con procesos industriales convencionales sin equipamiento especializado</li>
+      <li>Desempeño en baja HR (&lt;30%) aún inferior a mejores MOFs; área activa de investigación</li>
+    </ul>
+    <p>Para la hoja de ruta de Higro+, los composites sal-en-matriz representan una alternativa viable para versiones orientadas a precio bajo en mercados latinoamericanos. El diseño modular del cartucho sorbente contempla compatibilidad con distintas formulaciones de material activo.</p>
+  </section>
+
+  <section class="section">
+    <div class="section-rule"><span class="section-num">6.</span><h2><span data-es>Validación Comercial a Escala: Source Global</span><span data-en>Commercial Validation at Scale: Source Global</span></h2></div>
+    <p><strong>Source Global</strong> (anteriormente Zero Mass Water; Scottsdale, Arizona, EE.UU.) opera la línea de productos Hydropanel desde 2017, constituyendo la demostración comercial más relevante del principio AWH a escala de producto funcional.</p>
+    <ul class="sci-list">
+      <li>Producción media documentada: <strong>≈90 L por panel por mes</strong> bajo condiciones de Arizona</li>
+      <li>Operación validada a humedades relativas bajas, incluyendo el desierto de Sonora (&lt;30% HR estacional)</li>
+      <li>Instalación de 800 paneles en comunidades rurales con financiamiento estatal (USD 7,5 millones, 2023)</li>
+      <li>Certificación NSF/ANSI 372 para producción de agua potable sin conexión a red</li>
+    </ul>
+    <h3><span data-es>La Oportunidad de Nicho de Higro+</span><span data-en>Higro+'s Niche Opportunity</span></h3>
+    <p>Source Global aborda infraestructura hídrica de alta capacidad a un costo de 2.000–8.000 USD por unidad. Higro+ identifica un segmento diferente y no cubierto: riego doméstico de plantas con requerimiento de 50–500 mL·día⁻¹, precio objetivo de 80–200 USD, y propuesta de valor centrada en la eliminación del riego manual. La miniaturización del principio AWH para este caso de uso es el desafío de ingeniería central del proyecto.</p>
+  </section>
+
+  <section class="section">
+    <div class="section-rule"><span class="section-num">7.</span><h2><span data-es>Síntesis y Conclusiones</span><span data-en>Synthesis and Conclusions</span></h2></div>
+    <p>El principio físico-químico de Higro+ Drop cuenta con respaldo experimental robusto, publicado en revistas de alto impacto y replicado en condiciones de campo por múltiples grupos de investigación independientes.</p>
+    <table class="sci-table">
+      <thead>
+        <tr>
+          <th><span data-es>Principio o Capacidad</span><span data-en>Principle or Capability</span></th>
+          <th><span data-es>Fuente Principal</span><span data-en>Main Source</span></th>
+          <th><span data-es>Publicación</span><span data-en>Publication</span></th>
+          <th><span data-es>Estado</span><span data-en>Status</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Ciclo sorción-desorción solar</td><td>Kim et al.</td><td><em>Science</em>, 2017</td><td><span class="badge badge-v"><span data-es>Validado</span><span data-en>Validated</span></span></td></tr>
+        <tr><td>Operación a &lt;30% HR</td><td>Kim et al.; Hanikel et al.</td><td><em>Science</em>; <em>ACS CS</em></td><td><span class="badge badge-v"><span data-es>Validado</span><span data-en>Validated</span></span></td></tr>
+        <tr><td>Ciclado rápido (alta productividad)</td><td>Hanikel et al.</td><td><em>ACS CS</em>, 2019</td><td><span class="badge badge-v"><span data-es>Validado</span><span data-en>Validated</span></span></td></tr>
+        <tr><td>Recuperación de calor latente</td><td>LaPotin et al.</td><td><em>Joule</em>, 2021</td><td><span class="badge badge-v"><span data-es>Validado</span><span data-en>Validated</span></span></td></tr>
+        <tr><td>Composites sal-en-matriz</td><td>Múltiples grupos</td><td>Literatura distribuida</td><td><span class="badge badge-d"><span data-es>En desarrollo</span><span data-en>In development</span></span></td></tr>
+        <tr><td>Viabilidad comercial del principio</td><td>Source Global</td><td>Operación comercial activa</td><td><span class="badge badge-v"><span data-es>Validado</span><span data-en>Validated</span></span></td></tr>
+      </tbody>
+      <caption><span data-es>Tabla 4. Mapa de evidencia científica para los principios tecnológicos de Higro+ Drop. Estado al 18 de mayo de 2026.</span><span data-en>Table 4. Scientific evidence map for Higro+ Drop's technological principles. Status as of May 18, 2026.</span></caption>
+    </table>
+    <h3><span data-es>Naturaleza del Riesgo Tecnológico</span><span data-en>Nature of the Technological Risk</span></h3>
+    <p>Higro+ no está desarrollando una tecnología cuyo principio físico sea incierto. El riesgo tecnológico del proyecto es de naturaleza <strong>ingenieril y de diseño de producto</strong>: miniaturizar el sistema, optimizar la relación entre volumen de sorbente y productividad diaria, y alcanzar un costo de manufactura compatible con el precio objetivo del segmento consumidor. El camino crítico no pasa por demostrar que el principio funciona —eso ya está demostrado— sino por optimizar su implementación en formato compacto y accesible para el mercado latinoamericano.</p>
+  </section>
+
+  <div class="ref-section">
+    <hr class="ref-divider">
+    <div class="ref-heading"><span data-es>Referencias</span><span data-en>References</span></div>
+    <div class="ref-item">
+      <span class="ref-n">[1]</span>
+      <div>
+        <div class="ref-authors">Kim, H., Yang, S., Rao, S. R., Narayanan, S., Kapustin, E. A., Furukawa, H., Umans, A. S., Yaghi, O. M., & Wang, E. N.</div>
+        <div class="ref-title">Water harvesting from air with metal-organic frameworks powered by natural sunlight.</div>
+        <div class="ref-journal">Science, 356(6336), 430–434. (2017) · DOI: 10.1126/science.aam8743</div>
+      </div>
+    </div>
+    <div class="ref-item">
+      <span class="ref-n">[2]</span>
+      <div>
+        <div class="ref-authors">Hanikel, N., Prévot, M. S., Fathieh, F., Kapustin, E. A., Lyu, H., Wang, H., Diercks, N. J., Glover, T. G., & Yaghi, O. M.</div>
+        <div class="ref-title">Rapid cycling and exceptional yield in a metal-organic framework water harvester.</div>
+        <div class="ref-journal">ACS Central Science, 5(10), 1699–1706. (2019) · DOI: 10.1021/acscentsci.9b00745</div>
+      </div>
+    </div>
+    <div class="ref-item">
+      <span class="ref-n">[3]</span>
+      <div>
+        <div class="ref-authors">LaPotin, A., Zhong, Y., Zhang, L., Zhao, L., Leroy, A., Kim, H., Rao, S. R., & Wang, E. N.</div>
+        <div class="ref-title">Dual-stage atmospheric water harvesting device for scalable solar-driven water production.</div>
+        <div class="ref-journal">Joule, 5(1), 166–182. (2021) · DOI: 10.1016/j.joule.2020.09.008</div>
+      </div>
+    </div>
+    <div class="ref-item">
+      <span class="ref-n">[4]</span>
+      <div>
+        <div class="ref-authors">Source Global (formerly Zero Mass Water).</div>
+        <div class="ref-title">SOURCE Hydropanel: Technology and Performance Documentation.</div>
+        <div class="ref-journal">source.co · Scottsdale, AZ, EE.UU. · Accedido mayo 2026</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>HIGRO+ Scientific Reports · Vol. 1 · <span data-es>Mayo</span><span data-en>May</span> 2026</span>
+    <span><span data-es>Documento técnico confidencial</span><span data-en>Confidential technical document</span> · Santiago, Chile</span>
+  </div>
+
+</div>
+
+<script>
+function setLang(lang) {
+  document.body.classList.toggle('en', lang === 'en');
+  document.getElementById('btn-es').classList.toggle('active', lang === 'es');
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.documentElement.lang = lang;
+}
+</script>
+</body>
+</html>
